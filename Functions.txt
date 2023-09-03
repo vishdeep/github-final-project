@@ -1,0 +1,55 @@
+function getBooksList(){return new Promise((resolve,reject)=>{resolve(books);})}
+public_users.get('/',function(req,res){getBooksList().then()(bk)=>res.send(JSON,stringify(bk,null,4)),(error)=>res.send("denied");});
+
+
+
+
+
+
+function getFromISBN(isbn){
+let book1 = books[isbn];
+return new Promise((resolve,reject)=>{
+if(book1){resolve(book1);}
+else{reject("Unable to fin book");} 
+})}
+public_users.get('/isbn/:isbn',function(res,req){
+const isbn = req.params.isbn;
+getFromISBN(isbn).then((bk)=>res.send(JSON.stringify(bk,null,4)),
+(error)=>res.send(error)) });
+
+
+
+
+
+function getFromAuthor(author){
+let output =[]:
+return new Promise((resolve,reject)=>{
+for (var isbn in books) {
+let book_ = books[isbn];
+if (book_.author === author){output.push(book_);}}
+resolve(output); })}
+
+public_users.get('/author/:author,function (req, res) {
+const author = req.params.author;
+getFromAuthor(author).then(
+result =>res.send(JSON.stringify(result, null, 4)) };});
+
+
+
+
+
+
+function getFromTitle(title){
+let output = [];
+return new Promise((resolve, reject)=>{
+for (var isbn in books) {
+let book_= books[isbn];
+if (book_.title === title){output.push(book_);}}
+resolve(output); })}
+
+public_users.get('/title/:title',function (req, res) {
+const title = req.params.title; 
+getFromTitle(title).then(result =>res.send(JSON.stringify(result, null, 4)) };});
+
+
+
